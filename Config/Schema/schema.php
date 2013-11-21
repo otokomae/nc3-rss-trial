@@ -15,7 +15,7 @@ class RssSchema extends CakeSchema {
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'key' => 'primary'),
 		'content_id' => array('type' => 'integer', 'null' => false, 'default' => null),
 		'site_name' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
-		'url' => array('type' => 'text', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'url' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'encoding' => array('type' => 'string', 'null' => false, 'length' => 15, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'cache_time' => array('type' => 'integer', 'null' => false, 'default' => '3600', 'length' => 8),
 		'visible_row' => array('type' => 'integer', 'null' => false, 'default' => '10', 'length' => 2),
