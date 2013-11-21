@@ -5,6 +5,13 @@
 class Rss extends AppModel
 {
 	/*
+	| デフォルト値設定
+	*/
+	const DEFAULT_URL = 'http://';
+	const DEFAULT_CACHE_TIME = 3600;
+	const DEFAULT_VISIBLE_ROW = 10;
+
+	/*
 	| option項目の設定値
 	*/
 	/* キャッシュタイム（値は秒） */
@@ -31,6 +38,19 @@ class Rss extends AppModel
 		0  => 'すべて',
 	);
 
+	/**
+	 * Rssモジュールのデフォルト値を返す
+	 */
+	public function getDefault()
+	{
+		$data['Rss'] = array(
+			'url' => self::DEFAULT_URL,
+			'cache_time' => self::DEFAULT_CACHE_TIME,
+			'visible_row' => self::DEFAULT_VISIBLE_ROW,
+			'site_name' => null,
+		);
+		return $data;
+	}
 
 	/*
 	| option項目の呼び出し

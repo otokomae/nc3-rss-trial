@@ -1,11 +1,16 @@
 <?php
 $this->extend('/Frame/block');
+$this->Html->css('Rss.style');
 ?>
 
 <div>
-	<?php echo $this->Form->create('Rss', array('data-pjax' => '#'.$id)); ?>
+	<h2><?php echo __d('rss', 'Rss Edit'); ?></h2>
+
+	<?php
+		echo $this->Form->create('Rss', array('data-pjax' => '#'.$id));
+	?>
 		<fieldset class="form">
-			<ul class="lists">
+			<ul class="lists rss-edits-lists">
 				<li>
 					<dl>
 						<dt>
@@ -65,6 +70,7 @@ $this->extend('/Frame/block');
 								);
 								echo $this->Form->input('Rss.site_name', $options);
 							?>
+							配信されるRSSにサイト名が設定されていない場合に表示されます。
 						</dd>
 					</dl>
 				</li>
