@@ -1,5 +1,10 @@
 @charset "utf-8";
 
+@rssBorderColor: #ddd;
+@rssBgColor: #fcfcfc;
+@rssHoverBgcolor: #f3f3f3;
+
+
 ul.rss-edits-lists {
 	li {
 		dl {
@@ -15,6 +20,98 @@ ul.rss-edits-lists {
 				float: none;
 				padding: 0px 15px;
 				margin-left: 125px;
+			}
+		}
+	}
+}
+
+.rss-headline {
+	margin-bottom: 20px;
+	background-color: @rssBgColor;
+	border-top: 1px solid @rssBorderColor;
+	border-bottom: 1px solid @rssBorderColor;
+	font-size: 12px;
+
+	h2 {
+		padding: 5px 10px;
+		text-align: right;
+		cursor: pointer;
+	}
+
+	ul.rss-lists {
+		padding: 10px;
+		background-color: #fff;
+		border-top: 1px solid @rssBorderColor;
+		display: none;
+
+		li {
+			dl {
+				height: auto;
+
+				dt, dd {
+					margin-bottom: 5px;
+					padding: 0px;
+				}
+
+				dt {
+					width: 8em;
+				}
+
+				dd {
+					float: none;
+					margin-left: 9em;
+				}
+			}
+		}
+	}
+}
+
+.rss-items {
+	font-size: 13px;
+	border-bottom: 1px solid @rssBorderColor;
+
+	.rss-item {
+		border-top: 1px solid @rssBorderColor;
+
+		.rss-head {
+			padding: 5px;
+			background-color: @rssBgColor;
+			cursor: pointer;
+
+			&:hover {
+				background-color: @rssHoverBgcolor;
+			}
+
+			.rss-head-title {
+				float: left;
+				width: 80%;
+			}
+
+			.rss-head-time {
+				float: right;
+				width: 20%;
+				text-align: right;
+			}
+		}
+
+		.rss-detail {
+			padding: 15px;
+			border-top: 1px solid @rssBorderColor;
+			display: none;
+
+			h3 {
+				font-weight: bold;
+				font-size: 16px;
+			}
+
+			.rss-pubDate {
+				margin-bottom: 20px;
+				color: #666;
+				font-size: 12px;
+			}
+
+			.rss-description {
+				margin-bottom: 20px;
 			}
 		}
 	}

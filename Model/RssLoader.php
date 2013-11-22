@@ -76,9 +76,6 @@ class RssLoader
 
 			$this->channel = $xml->channel;
 			$this->items   = $xml->channel->item;
-
-			echo $this->items->count();
-
 		} catch (XmlException $e) {
 			return false;
 		}
@@ -102,7 +99,7 @@ class RssLoader
 		$ret = array();
 		$i = 0;
 		foreach ($this->items as $item) {
-			if ($i > $limit) {
+			if ($i >= $limit) {
 				break;
 			}
 
