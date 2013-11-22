@@ -48,6 +48,7 @@ class RssEditsController extends RssAppController
 					$rss['Rss']['site_name'] = $rss_loader->channel->title;
 					$rss['Rss']['encoding'] = $rss_loader->encoding;
 					$rss['Rss']['xml'] = $rss_loader->body;
+					$rss['Rss']['update_time_sec'] = time();
 				}
 			}
 
