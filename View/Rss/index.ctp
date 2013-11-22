@@ -1,8 +1,9 @@
 <?php
 $this->extend('/Frame/block');
+$this->Html->css('Rss.style');
 ?>
 
-<div id="rss-headline">
+<div class="rss-headline">
 	<h2>ヘッドライン先情報</h2>
 	<ul class="lists rss-lists">
 		<li>
@@ -26,19 +27,24 @@ $this->extend('/Frame/block');
 	</ul>
 </div>
 
-<div id="rss-items">
+<div class="rss-items">
 	<?php foreach ($xml->limit($rss['Rss']['visible_row']) as $item): ?>
 		<div class="rss-item">
-			<h3><?php echo $this->Html->link($item->title, '', array('escape' => true)); ?></h3>
+			<div class="rss-head clearfix">
+				<span class="rss-head-title"><?php echo h($item->title); ?></span>
+				<span class="rss-head-time"><?php echo $this->Time->timeAgoInWords($item->pubDate); ?></span>
+			</div>
+
 			<div class="rss-detail">
-				<p class="rss-description">
-					<?php echo h($item->description); ?>
-				</p>
+				<h3><?php echo h($item->title); ?></h3>
 				<p class="rss-pubDate">
-					<?php echo $item->pubDate; ?><br />
-					<?php echo $this->Time->format('Y/m/d H:i:s', $item->pubDate); ?>
+					更新日：<?php echo $this->Time->format('Y/m/d H:i:s', $item->pubDate); ?>
 				</p>
-				<p class="rss-more">
+				<p class="rss-description">
+					<?php echo h(nl2br($item->description)); ?>
+				</p>
+				<p class="rss-permalink">
+					リンク元： <?php echo $item->link; ?><br />
 					<?php echo $this->Html->link(__d('rss', 'More Read'), $item->link); ?>
 				</p>
 			</div>

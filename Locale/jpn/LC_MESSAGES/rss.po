@@ -1,6 +1,6 @@
 msgid "Rss Edit"
 msgstr "RSS情報の編集"
 
-msgid "Rss Read"
+msgid "More Read"
 msgstr "もっと読む"
 
