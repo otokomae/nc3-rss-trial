@@ -81,4 +81,31 @@ class RssLoader
 
 		return $this;
 	}
+
+	/**
+	 * 必要件数分の記事を取得する
+	 *
+	 * @param 	Int 	$limit 	取得件数
+	 */
+	public function limit($limit = 10)
+	{
+		// 取得アイテムがないときは false を返す
+		if (empty($this->items)) {
+			return false;
+		}
+
+		// 上位○件を配列に落とし込み return する
+		$ret = array();
+		$i = 0;
+		foreach ($this->items as $item) {
+			if ($i > $limit) {
+				break;
+			}
+
+			$ret[] = $item;
+			$i++;
+		}
+
+		return $ret;
+	}
 }
