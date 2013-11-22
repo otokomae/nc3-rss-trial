@@ -37,25 +37,17 @@ class RssEditsController extends RssAppController
 			// URLに変更があるときは RSS情報を再取得
 			// 新規登録時は常に取得する
 			//
-			$rss_loader = true;
+			$xml = true;
 			if (!isset($rss['Rss']['id']) or $old['Rss']['url'] != $this->request->data['Rss']['url']) {
-				$rss_loader = $this->RssLoader->get($this->request->data['Rss']['url']);
-
-				// 正しくデータが取得出来たときは、
-				// サイト名・文字コード・XML　を更新させる
-				//
-				if ($rss_loader) {
-					$rss['Rss']['site_name'] = $rss_loader->channel->title;
-					$rss['Rss']['encoding'] = $rss_loader->encoding;
-					$rss['Rss']['xml'] = $rss_loader->body;
-					$rss['Rss']['update_time_sec'] = time();
-				}
+				$xml = $this->RssLoader->get($this->request->data['Rss']['url']);
 			}
 
 			// RSSの取得に成功したときのみデータ更新処理を行う。
 			// RSSの取得に失敗しているときは更新処理を行わずにエラーとして対処する(TODO)
 			//
-			if ($rss_loader) {
+			if ($xml) {
+				$rss = $this->RssCommon->buildCache($rss, $xml);
+
 				// データの更新処理
 				if (!$this->Rss->save($rss)) {
 					throw new InternalErrorException(

@@ -2,6 +2,12 @@
 $this->extend('/Frame/block');
 $this->Html->css('Rss.style');
 echo $this->Html->script('Rss.Rss/index');
+
+// RSSモジュール登録失敗時には $rss データが取得できないのでエラーを返す
+if (empty($rss)) {
+	echo 'RSSヘッドライン情報がありません。';
+	return;
+}
 ?>
 
 <div class="rss-headline">
