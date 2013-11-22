@@ -1,6 +1,7 @@
 <?php
 $this->extend('/Frame/block');
 $this->Html->css('Rss.style');
+echo $this->Html->script('Rss.Rss/index');
 ?>
 
 <div class="rss-headline">
@@ -51,3 +52,9 @@ $this->Html->css('Rss.style');
 		</div>
 	<?php endforeach; ?>
 </div>
+
+<script>
+$(function(){
+	$('#<?php echo($id); ?>').Rss('<?php echo($id); ?>');
+});
+</script>
