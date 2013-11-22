@@ -1,6 +1,8 @@
 <?php
 /**
+ * Rssモデル
  *
+ * Rssデータを扱うモデル
  */
 class Rss extends AppModel
 {
