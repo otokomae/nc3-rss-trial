@@ -43,9 +43,10 @@ class Rss extends AppModel
 	/**
 	 * Rssモジュールのデフォルト値を返す
 	 */
-	public function getDefault()
+	public function getDefault($content_id)
 	{
 		$data['Rss'] = array(
+			'content_id' => $content_id,
 			'url' => self::DEFAULT_URL,
 			'cache_time' => self::DEFAULT_CACHE_TIME,
 			'visible_row' => self::DEFAULT_VISIBLE_ROW,

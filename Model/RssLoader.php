@@ -22,6 +22,8 @@ class RssLoader
 	/** RSS の items */
 	public $items;
 
+	public $body;
+
 	/**
 	 * コンストラクタ
 	 */
@@ -47,6 +49,8 @@ class RssLoader
 			// 文字コードの解析
 			preg_match('/.*charset=(.+)/', $response->headers['Content-Type'], $matches);
 			$this->encoding = !empty($matches[1]) ? $matches[1] : null;
+
+			$this->body = $response->body;
 
 			$this->build($response->body);
 
