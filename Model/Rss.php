@@ -7,6 +7,17 @@
 class Rss extends AppModel
 {
 	/*
+	| Validationルール設定
+	*/
+	public $validate = array(
+		'url' => array(
+			'rule' => 'url',
+			'required' => true,
+			'message' => 'URLが正しくありません。',
+		),
+	);
+
+	/*
 	| デフォルト値設定
 	*/
 	const DEFAULT_URL = 'http://';
@@ -39,6 +50,7 @@ class Rss extends AppModel
 		30 => 30,
 		0  => 'すべて',
 	);
+
 
 	/**
 	 * Rssモジュールのデフォルト値を返す

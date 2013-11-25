@@ -25,6 +25,7 @@ class RssEditsController extends RssAppController
 
 		// 登録（新規・更新）処理
 		//
+		$errors = false;
 		if ($this->request->is(array('post', 'put'))) {
 			// 元のデータと入力データをマージ
 			// 古いデータは old に確保
@@ -33,19 +34,30 @@ class RssEditsController extends RssAppController
 			$rss['Rss'] = array_merge($rss['Rss'], $this->request->data['Rss']);
 
 			// validation
+			$this->Rss->set($rss);
+			if (!$this->Rss->validates()) {
+				$errors = $this->Rss->validationErrors;
+			}
 
 			// URLに変更があるときは RSS情報を再取得
 			// 新規登録時は常に取得する
+			// $xml = false で、xml取得失敗となる。
 			//
 			$xml = true;
-			if (!isset($rss['Rss']['id']) or $old['Rss']['url'] != $this->request->data['Rss']['url']) {
-				$xml = $this->RssLoader->get($this->request->data['Rss']['url']);
+			if (!$errors) {
+				if (!isset($rss['Rss']['id']) or $old['Rss']['url'] != $this->request->data['Rss']['url']) {
+					$xml = $this->RssLoader->get($this->request->data['Rss']['url']);
+				}
+				if ($xml == false) {
+					$this->Rss->invalidate('url', 'RSSが正しく読み込みできませんでした。');
+					$errors = true;
+				}
 			}
 
 			// RSSの取得に成功したときのみデータ更新処理を行う。
 			// RSSの取得に失敗しているときは更新処理を行わずにエラーとして対処する(TODO)
 			//
-			if ($xml) {
+			if (!$errors) {
 				$rss = $this->RssCommon->buildCache($rss, $xml);
 
 				// データの更新処理
@@ -63,5 +75,6 @@ class RssEditsController extends RssAppController
 
 		// フォームに表示する値をセットする
 		$this->request->data = $this->request->data ?: $rss;
+		$this->set('errors', $errors);
 	}
 }

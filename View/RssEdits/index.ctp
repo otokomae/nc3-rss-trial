@@ -6,6 +6,11 @@ $this->Html->css('Rss.style');
 <div>
 	<h2><?php echo __d('rss', 'Rss Edit'); ?></h2>
 
+	<?php if ($errors): ?>
+		<div class="error-message clearfix">
+			入力内容にエラーがありました。確認して再度決定を行って下さい。
+		</div>
+	<?php endif; ?>
 	<?php
 		echo $this->Form->create('Rss', array('data-pjax' => '#'.$id));
 	?>
