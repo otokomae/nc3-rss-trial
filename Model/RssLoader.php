@@ -22,13 +22,13 @@ class RssLoader
 	 */
 	public $encoding;
 
-	/** RSSの channel */
-	public $channel;
+    /* RSS情報 */
+    public $title;
+    public $description;
+    public $url;
+    public $items;
 
-	/** RSS の items */
-	public $items;
-
-	public $body;
+    private $xml;
 
 	/**
 	 * コンストラクタ
@@ -56,8 +56,10 @@ class RssLoader
 			preg_match('/.*charset=(.+)/', $response->headers['Content-Type'], $matches);
 			$this->encoding = !empty($matches[1]) ? $matches[1] : null;
 
-			$this->body = $response->body;
+			// URLセット
+			$this->url = $url;
 
+			// XMLからデータ構築
 			$this->build($response->body);
 
 		} catch (SocketException $e) {
@@ -87,15 +89,72 @@ class RssLoader
 	public function build($input)
 	{
 		try {
-			$xml = Xml::build($input);
+			$this->xml = Xml::build($input);
 
-			$this->channel = $xml->channel;
-			$this->items   = $xml->channel->item;
+			// RSSの種別を解析
+			$this->getType();
+
+			// RDF / RSS / Atom 以外は受け付けない
+			if (!in_array($this->type, array('Rdf', 'Rss', 'Feed'))) {
+				return false;
+			}
+
+			// それぞれの方法でパースする
+			$this->{'parse'.$this->type}();
+
 		} catch (XmlException $e) {
 			return false;
 		}
 
 		return $this;
+	}
+
+	/**
+	 * rdf のパース
+	 */
+	public function parseRdf()
+	{
+		echo 'RDFRDR';
+		$this->title 		= $this->xml->channel->title;
+		$this->description 	= $this->xml->channel->description;
+
+		$this->items = array();
+		foreach ($this->xml->item as $item) {
+			$this->items[] = $item;
+		}
+	}
+
+	/**
+	 * rss のパース
+	 */
+	public function parseRss()
+	{
+		$this->title 		= $this->xml->channel->title;
+		$this->description 	= $this->xml->channel->description;
+
+		$this->items = array();
+		foreach ($this->xml->channel->item as $item) {
+			$this->items[] = $item;
+		}
+	}
+
+	/**
+	 * atom のパース
+	 */
+	public function parseFeed()
+	{
+		$this->title 		= $this->xml->title;
+		$this->description 	= $this->xml->tagline;
+
+		$this->items = array();
+		foreach ($this->xml->entry as $entry) {
+			$item = new stdClass;
+			$item->title = $entry->title;
+			$item->description = $entry->summary;
+			$item->link = $entry->link->attributes()->href;
+
+			$this->items[] = $item;
+		}
 	}
 
 	/**
