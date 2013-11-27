@@ -32,9 +32,9 @@ class RssCommonComponent extends Component
 	 */
 	public function buildCache($rss, $xml)
 	{
-		$rss['Rss']['site_name'] = $xml->channel->title;
+		$rss['Rss']['site_name'] = $xml->title;
 		$rss['Rss']['encoding'] = $xml->encoding;
-		$rss['Rss']['xml'] = $xml->body;
+		$rss['Rss']['xml'] = $xml->jsonEncode();
 		$rss['Rss']['update_time_sec'] = time();
 
 		return $rss;

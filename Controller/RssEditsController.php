@@ -58,7 +58,10 @@ class RssEditsController extends RssAppController
 			// RSSの取得に失敗しているときは更新処理を行わずにエラーとして対処する(TODO)
 			//
 			if (!$errors) {
-				$rss = $this->RssCommon->buildCache($rss, $xml);
+				// $rssデータ配列にキャッシュ情報と XMLデータを付加する
+				if (!isset($rss['Rss']['id']) or $old['Rss']['url'] != $this->request->data['Rss']['url']) {
+					$rss = $this->RssCommon->buildCache($rss, $xml);
+				}
 
 				// データの更新処理
 				if (!$this->Rss->save($rss)) {
