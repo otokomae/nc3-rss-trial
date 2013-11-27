@@ -22,7 +22,7 @@ if (empty($rss)) {
 		<li>
 			<dl>
 				<dt>サイトの説明</dt>
-				<dd><?php echo h($xml->channel->description); ?></dd>
+				<dd><?php echo h($xml->description); ?></dd>
 			</dl>
 		</li>
 		<li>
@@ -35,7 +35,7 @@ if (empty($rss)) {
 </div>
 
 <div class="rss-items">
-	<?php foreach ($xml->limit($rss['Rss']['visible_row']) as $item): ?>
+	<?php foreach ($xml->items as $item): ?>
 		<div class="rss-item">
 			<div class="rss-head clearfix">
 				<span class="rss-head-title"><?php echo h($item->title); ?></span>

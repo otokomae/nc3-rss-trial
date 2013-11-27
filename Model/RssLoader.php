@@ -114,12 +114,12 @@ class RssLoader
 	 */
 	public function parseRdf()
 	{
-		echo 'RDFRDR';
 		$this->title 		= $this->xml->channel->title;
 		$this->description 	= $this->xml->channel->description;
 
 		$this->items = array();
 		foreach ($this->xml->item as $item) {
+			$item->pubDate = $item->children('dc', true)->date;
 			$this->items[] = $item;
 		}
 	}
@@ -149,9 +149,10 @@ class RssLoader
 		$this->items = array();
 		foreach ($this->xml->entry as $entry) {
 			$item = new stdClass;
-			$item->title = $entry->title;
-			$item->description = $entry->summary;
-			$item->link = $entry->link->attributes()->href;
+			$item->title = (String)$entry->title;
+			$item->description = (String)$entry->summary;
+			$item->link = (String)$entry->link->attributes()->href;
+			$item->pubDate = (String)$entry->issued;
 
 			$this->items[] = $item;
 		}

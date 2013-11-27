@@ -59,7 +59,9 @@ class RssEditsController extends RssAppController
 			//
 			if (!$errors) {
 				// $rssデータ配列にキャッシュ情報と XMLデータを付加する
-				$rss = $this->RssCommon->buildCache($rss, $xml);
+				if (!isset($rss['Rss']['id']) or $old['Rss']['url'] != $this->request->data['Rss']['url']) {
+					$rss = $this->RssCommon->buildCache($rss, $xml);
+				}
 
 				// データの更新処理
 				if (!$this->Rss->save($rss)) {

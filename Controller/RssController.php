@@ -24,12 +24,13 @@ class RssController extends RssAppController
 					# code...
 				} else {
 					$rss = $this->RssCommon->buildCache($rss, $xml);
+
 					$this->Rss->update($rss);
 				}
 			}
 
 			// 再度取得した XMLデータからパースして xml として利用する
-			$xml = $this->RssLoader->build($rss['Rss']['xml']);
+			$xml = json_decode($rss['Rss']['xml']);
 			$this->set('xml', $xml);
 		}
 
