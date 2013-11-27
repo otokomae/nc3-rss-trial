@@ -11,6 +11,12 @@ class RssLoader
 	protected $http;
 
 	/**
+	 * RSSの type
+	 * rdf, rss, atom のどれかの判別
+	 */
+	public $type;
+
+	/**
 	 * 文字コード
 	 * get() で URLから取得したときのみそのエンコーディングがセットされる
 	 */
@@ -61,6 +67,15 @@ class RssLoader
 		}
 
 		return $this;
+	}
+
+	/**
+	 * 読み込んだ URL のタイプの取得
+	 */
+	public function getType()
+	{
+		// XMLのタイプを取得してそれに泡えてパースする
+		$this->type = Inflector::camelize(strtolower($this->xml->getName()));
 	}
 
 	/**
