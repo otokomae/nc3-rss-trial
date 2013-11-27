@@ -158,6 +158,14 @@ class RssLoader
 	}
 
 	/**
+	 * 自分自身の json 形式を返す
+	 */
+	public function jsonEncode()
+	{
+		return json_encode($this);
+	}
+
+	/**
 	 * 必要件数分の記事を取得する
 	 *
 	 * @param 	Int 	$limit 	取得件数
