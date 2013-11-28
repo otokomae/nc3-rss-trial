@@ -115,7 +115,7 @@ class RssLoader
 	public function parseRdf()
 	{
 		$this->title 		= $this->xml->channel->title;
-		$this->description 	= $this->xml->channel->description;
+		$this->description 	= (String) $this->xml->channel->description;
 
 		$this->items = array();
 		foreach ($this->xml->item as $item) {
@@ -130,7 +130,7 @@ class RssLoader
 	public function parseRss()
 	{
 		$this->title 		= $this->xml->channel->title;
-		$this->description 	= $this->xml->channel->description;
+		$this->description 	= (String) $this->xml->channel->description;
 
 		$this->items = array();
 		foreach ($this->xml->channel->item as $item) {
@@ -144,7 +144,7 @@ class RssLoader
 	public function parseFeed()
 	{
 		$this->title 		= $this->xml->title;
-		$this->description 	= $this->xml->tagline;
+		$this->description 	= (String) $this->xml->tagline;
 
 		$this->items = array();
 		foreach ($this->xml->entry as $entry) {

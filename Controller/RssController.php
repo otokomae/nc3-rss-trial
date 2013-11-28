@@ -25,7 +25,7 @@ class RssController extends RssAppController
 				} else {
 					$rss = $this->RssCommon->buildCache($rss, $xml);
 
-					$this->Rss->update($rss);
+					$this->Rss->save($rss);
 				}
 			}
 
