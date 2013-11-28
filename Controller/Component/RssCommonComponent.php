@@ -39,4 +39,23 @@ class RssCommonComponent extends Component
 
 		return $rss;
 	}
+
+	/**
+	 * $xml->items について必要件数分を返す対応
+	 *
+	 * @param 	Array 	$items 	記事一覧が格納されている配列
+	 * @param   Int 	$limit  取得する件数
+	 *
+	 * @param   Array   $items の先頭 $limit分の配列を返す
+	 */
+	public function takeItems($items, $limit = 0)
+	{
+		if ($limit == 0) {
+			return $items;
+		} else {
+			return array_slice($items, 0, $limit);
+		}
+
+
+	}
 }

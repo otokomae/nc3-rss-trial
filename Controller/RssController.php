@@ -31,6 +31,7 @@ class RssController extends RssAppController
 
 			// 再度取得した XMLデータからパースして xml として利用する
 			$xml = json_decode($rss['Rss']['xml']);
+			$xml->items = $this->RssCommon->takeItems($xml->items, $rss['Rss']['visible_row']);
 			$this->set('xml', $xml);
 		}
 
